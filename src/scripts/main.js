@@ -26,11 +26,14 @@ document.body.prepend(treeList);
 const tree = document.querySelector('#tree');
 
 function createTree(element, data) {
-  const ul = document.createElement('ul');
-
-  element.append(ul);
-
   for (const key in data) {
+    const ul =
+      element.tagName === 'UL' ? element : document.createElement('ul');
+
+    if (ul !== element) {
+      element.append(ul);
+    }
+
     const li = document.createElement('li');
 
     li.innerHTML = key;
