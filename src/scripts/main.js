@@ -18,29 +18,29 @@ const food = {
   },
 };
 
-const treeList = document.createElement('div');
+const treeContainer = document.createElement('div');
 
-treeList.setAttribute('id', 'tree');
-document.body.prepend(treeList);
+treeContainer.setAttribute('id', 'tree');
+document.body.prepend(treeContainer);
+
+const rootUl = document.createElement('ul');
+
+treeContainer.append(rootUl);
 
 const tree = document.querySelector('#tree');
 
 function createTree(element, data) {
   for (const key in data) {
-    const ul =
-      element.tagName === 'UL' ? element : document.createElement('ul');
-
-    if (ul !== element) {
-      element.append(ul);
-    }
-
     const li = document.createElement('li');
 
-    li.innerHTML = key;
-    ul.append(li);
+    li.textContent = key;
+    element.append(li);
 
     if (Object.keys(data[key]).length > 0) {
-      createTree(li, data[key]);
+      const nestedUl = document.createElement('ul');
+
+      li.append(nestedUl);
+      createTree(nestedUl, data[key]);
     }
   }
 }
